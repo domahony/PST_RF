@@ -1,0 +1,25 @@
+* Compiling Arduino Sketches
+
+* Using Linux CLI to Send Data
+
+1.) Scan for the RFDuino ID using hcitool
+sudo hcitool lescan
+
+2.) Connect using gatttool 
+
+gatttool -b `<rfduino.id` -t random -I 
+[   ][D6:44:37:25:8B:CD][LE]> 
+[CON][D6:44:37:25:8B:CD][LE]> 
+[CON][D6:44:37:25:8B:CD][LE]> primary
+[CON][D6:44:37:25:8B:CD][LE]> 
+attr handle: 0x0001, end grp handle: 0x0007 uuid: 00001800-0000-1000-8000-00805f9b34fb -> This is the standard GAP UUID
+attr handle: 0x0008, end grp handle: 0x000b uuid: 00001801-0000-1000-8000-00805f9b34fb -> This is the standard GATT UUID 
+attr handle: 0x000c, end grp handle: 0xffff uuid: 00002220-0000-1000-8000-00805f9b34fb -> This is the vendor-specific RFDuino UUID
+[CON][D6:44:37:25:8B:CD][LE]> characteristics 0x000c 0xffff
+[CON][D6:44:37:25:8B:CD][LE]> 
+handle: 0x000d, char properties: 0x12, char value handle: 0x000e, uuid: 00002221-0000-1000-8000-00805f9b34fb 
+handle: 0x0010, char properties: 0x0c, char value handle: 0x0011, uuid: 00002222-0000-1000-8000-00805f9b34fb -> This is the handle to write data
+handle: 0x0012, char properties: 0x0c, char value handle: 0x0013, uuid: 00002223-0000-1000-8000-00805f9b34fb
+[CON][D6:44:37:25:8B:CD][LE]> 
+[CON][D6:44:37:25:8B:CD][LE]> char-write-cmd 0x0011 01 -> Write byte 01 to 0x0011
+[CON][D6:44:37:25:8B:CD][LE]> char-write-cmd 0x0011 00 -> Write byte 00 to 0x0011
